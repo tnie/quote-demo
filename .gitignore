@@ -1,2 +1,6 @@
 /testinstalld
 /quote/cmake
+*.grpc.pb.h
+*.grpc.pb.cc
+*.pb.h
+*.pb.cc
