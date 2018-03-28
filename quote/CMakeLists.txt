@@ -47,6 +47,7 @@ get_target_property(gRPC_CPP_PLUGIN_EXECUTABLE gRPC::grpc_cpp_plugin
 # Proto file
 get_filename_component(qs_proto "../protos/quote_service.proto" ABSOLUTE)
 get_filename_component(qs_proto_path "${qs_proto}" PATH)
+get_filename_component(df_proto "../protos/data_define.proto" ABSOLUTE)
 
 # Generated sources
 protobuf_generate_cpp(qs_proto_srcs qs_proto_hdrs "${qs_proto}")
@@ -60,6 +61,17 @@ add_custom_command(
         "${qs_proto}"
       DEPENDS "${qs_proto}")
 
+protobuf_generate_cpp(df_proto_srcs df_proto_hdrs "${df_proto}")
+set(df_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/data_define.grpc.pb.cc")
+set(df_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/data_define.grpc.pb.h")
+add_custom_command(
+      OUTPUT "${df_grpc_srcs}" "${df_grpc_hdrs}"
+      COMMAND ${_PROTOBUF_PROTOC}
+      ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}" -I "${df_proto_path}"
+        --plugin=protoc-gen-grpc="${gRPC_CPP_PLUGIN_EXECUTABLE}"
+        "${df_proto}"
+      DEPENDS "${df_proto}")
+
 # Generated include directory
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
@@ -68,7 +80,9 @@ foreach(_target
   quote_async_bidi_client quote_async_bidi_server)
   add_executable(${_target} "${_target}.cc"
     ${qs_proto_srcs}
-    ${qs_grpc_srcs})
+    ${qs_grpc_srcs}
+	${df_proto_srcs}
+    ${df_grpc_srcs})
   target_link_libraries(${_target}
     ${_PROTOBUF_LIBPROTOBUF}
     gRPC::grpc++_unsecure)
