@@ -45,20 +45,20 @@ get_target_property(gRPC_CPP_PLUGIN_EXECUTABLE gRPC::grpc_cpp_plugin
     IMPORTED_LOCATION_DEBUG)
 
 # Proto file
-get_filename_component(hw_proto "../protos/quote_service.proto" ABSOLUTE)
-get_filename_component(hw_proto_path "${hw_proto}" PATH)
+get_filename_component(qs_proto "../protos/quote_service.proto" ABSOLUTE)
+get_filename_component(qs_proto_path "${qs_proto}" PATH)
 
 # Generated sources
-protobuf_generate_cpp(hw_proto_srcs hw_proto_hdrs "${hw_proto}")
-set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/quote_service.grpc.pb.cc")
-set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/quote_service.grpc.pb.h")
+protobuf_generate_cpp(qs_proto_srcs qs_proto_hdrs "${qs_proto}")
+set(qs_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/quote_service.grpc.pb.cc")
+set(qs_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/quote_service.grpc.pb.h")
 add_custom_command(
-      OUTPUT "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
+      OUTPUT "${qs_grpc_srcs}" "${qs_grpc_hdrs}"
       COMMAND ${_PROTOBUF_PROTOC}
-      ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}" -I "${hw_proto_path}"
+      ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}" -I "${qs_proto_path}"
         --plugin=protoc-gen-grpc="${gRPC_CPP_PLUGIN_EXECUTABLE}"
-        "${hw_proto}"
-      DEPENDS "${hw_proto}")
+        "${qs_proto}"
+      DEPENDS "${qs_proto}")
 
 # Generated include directory
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
@@ -67,8 +67,8 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 foreach(_target
   quote_async_bidi_client quote_async_bidi_server)
   add_executable(${_target} "${_target}.cc"
-    ${hw_proto_srcs}
-    ${hw_grpc_srcs})
+    ${qs_proto_srcs}
+    ${qs_grpc_srcs})
   target_link_libraries(${_target}
     ${_PROTOBUF_LIBPROTOBUF}
     gRPC::grpc++_unsecure)
