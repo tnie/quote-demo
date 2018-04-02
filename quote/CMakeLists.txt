@@ -48,6 +48,7 @@ get_target_property(gRPC_CPP_PLUGIN_EXECUTABLE gRPC::grpc_cpp_plugin
 get_filename_component(qs_proto "../protos/quote_service.proto" ABSOLUTE)
 get_filename_component(qs_proto_path "${qs_proto}" PATH)
 get_filename_component(df_proto "../protos/data_define.proto" ABSOLUTE)
+get_filename_component(df_proto_path "${df_proto}" PATH)
 
 # Generated sources
 protobuf_generate_cpp(qs_proto_srcs qs_proto_hdrs "${qs_proto}")
