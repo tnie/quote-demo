@@ -15,6 +15,10 @@
 @rem enter this directory
 cd /d %~dp0\
 
+@rem delete cache
+rd  /S /Q quote\cmake\build\CMakeFiles
+del /S /Q quote\cmake\build\CMakeCache.txt
+
 @rem TODO(jtattermusch): Kokoro has pre-installed protoc.exe in C:\Program Files\ProtoC and that directory
 @rem is on PATH. To avoid picking up the older version protoc.exe, we change the path to something non-existent.
 set PATH=%PATH:ProtoC=DontPickupProtoC%
