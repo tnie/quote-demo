@@ -10,6 +10,12 @@
 
 当出现 xx 等无法理解的问题时，尝试删除 cmake 临时文件所在目录，再次执行试试
 
+`.proto` 原型未发布，放在了私库中。
+
+# 参考源于
+
+双向流 & 异步的 demo 摘自：https://github.com/perumaalgoog/grpc/tree/perugrpc
+
 [1]:https://github.com/tnie/grpc/tree/Branch_v1.9.0-pre2
 [2]:https://github.com/tnie/grpc/tree/feature_debug
 
