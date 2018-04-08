@@ -52,7 +52,7 @@ using yuanda::QuoteServer;
 
 enum class Type { READ = 1, WRITE = 2, CONNECT = 3, DONE = 4, FINISH = 5 };
 
-// TODO 不能同时连接两个client！！
+// TODO 涓嶈兘鍚屾椂杩炴帴涓や釜client锛侊紒
 
 // NOTE: This is a complex example for an asynchronous, bidirectional streaming
 // server. For a simpler example, start with the

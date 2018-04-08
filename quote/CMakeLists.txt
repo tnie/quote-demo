@@ -10,6 +10,9 @@ else()
   add_definitions(-D_WIN32_WINNT=0x600)
 endif()
 
+add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+
 # Protobuf
 # NOTE: we cannot use "CONFIG" mode here because protobuf-config.cmake
 # is broken when used with CMAKE_INSTALL_PREFIX

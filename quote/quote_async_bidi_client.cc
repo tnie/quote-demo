@@ -70,7 +70,7 @@ class AsyncBidiGreeterClient {
                                    reinterpret_cast<void*>(Type::CONNECT));*/
     stream_ = stub_->PrepareAsyncFetchQuote(&context_, &cq_);
     stream_->StartCall(reinterpret_cast<void*>(Type::CONNECT));
-    // TODO ÒÔÏÂÁ½¾ä²»ĞèÒª°É£¿
+    // TODO ä»¥ä¸‹ä¸¤å¥ä¸éœ€è¦å§ï¼Ÿ
     /*Status status;
     stream_->Finish(&status, reinterpret_cast<void*>(Type::CONNECT));*/
   }
@@ -109,14 +109,14 @@ class AsyncBidiGreeterClient {
 
  private:
   void AsyncQuoteRequestNextMessage() {
-    // TODO ÒÆµ½ÁË±ğµÄµØ·½£¬¶ÔÂğ£¿
+    // TODO ç§»åˆ°äº†åˆ«çš„åœ°æ–¹ï¼Œå¯¹å—ï¼Ÿ
     //std::cout << " ** Got response: " << response_.message() << std::endl;
 
     // The tag is the link between our thread (main thread) and the completion
     // queue thread. The tag allows the completion queue to fan off
     // notification handlers for the specified read/write requests as they
     // are being processed by gRPC.
-    // TODO ¸ÉÂïµÄ£¿
+    // TODO å¹²å˜›çš„ï¼Ÿ
     stream_->Read(&response_, reinterpret_cast<void*>(Type::READ));
   }
 
@@ -152,7 +152,7 @@ class AsyncBidiGreeterClient {
             break;
           case Type::WRITE:
             std::cout << "Sending message (async)." << std::endl;
-            AsyncQuoteRequestNextMessage();  // TODO ÓĞÊ²Ã´ÓÃ£¿
+            AsyncQuoteRequestNextMessage();  // TODO æœ‰ä»€ä¹ˆç”¨ï¼Ÿ
             break;
           case Type::CONNECT:
             std::cout << "Server connected." << std::endl;
